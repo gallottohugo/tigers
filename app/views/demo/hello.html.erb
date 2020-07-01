@@ -1,0 +1,11 @@
+<h1>This is the Hello page</h1>
+<% result = 1 + 2 %>
+<%= result %>
+<br/>
+
+<%= "hello #{@target}" %>
+<br/>
+<br/>
+<%= link_to("Index", {:controller => 'demo', :action => 'index' }) %>
+<br/>
+<%= link_to("Index with params", {:controller => 'demo', :action => 'index', :id => 1, :name => "hugo" }) %>
