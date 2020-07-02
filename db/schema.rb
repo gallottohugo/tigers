@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_02_135611) do
+ActiveRecord::Schema.define(version: 2020_07_02_142737) do
 
   create_table "consignas", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
     t.string "name"
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(version: 2020_07_02_135611) do
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "consigna_id", null: false
+    t.index ["consigna_id"], name: "index_customers_on_consigna_id"
     t.index ["email"], name: "index_customers_on_email", unique: true
     t.index ["reset_password_token"], name: "index_customers_on_reset_password_token", unique: true
   end
@@ -58,7 +60,16 @@ ActiveRecord::Schema.define(version: 2020_07_02_135611) do
     t.datetime "date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
     t.index ["consigna_id"], name: "index_guards_on_consigna_id"
+    t.index ["user_id"], name: "index_guards_on_user_id"
+  end
+
+  create_table "guards_and_employees", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
+    t.bigint "guards_id"
+    t.bigint "employees_id"
+    t.index ["employees_id"], name: "index_guards_and_employees_on_employees_id"
+    t.index ["guards_id"], name: "index_guards_and_employees_on_guards_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=latin1", force: :cascade do |t|
@@ -73,4 +84,6 @@ ActiveRecord::Schema.define(version: 2020_07_02_135611) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "customers", "consignas"
+  add_foreign_key "guards", "users"
 end
