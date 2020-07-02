@@ -1,0 +1,2 @@
+class Consigna < ApplicationRecord
+end
